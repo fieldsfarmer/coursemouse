@@ -1,21 +1,41 @@
 var demoControllers = angular.module('demoControllers', []);
 
-demoControllers.controller('MainController', ['$scope', 'Courses', function($scope, Courses) {
+demoControllers.controller('MainController', ['$scope', 'Courses', '$location', function($scope, Courses, $location) {
 	$scope.courses = "";
 	$scope.query = "";
 	rawData = "";
 	$scope.submit = function(){
-		Courses.searchFromCoursera($scope.query, function(data){
-			rawData = data.hits.hits;
-			for(var i = 0; i < rawData.length; i++){
-				if(rawData[i]._source.language != "en"){
-					rawData[i]._source.name = utf8(rawData[i]._source.name);
-					rawData[i]._source.shortDescription = utf8(rawData[i]._source.shortDescription);
-				}
-			}
-			$scope.courses = rawData;
-		});
+		$location.path('/search/q='+$scope.query);
 	}
+
+	$(document).ready(function (){
+		initNavbar();
+	});
+}]);
+
+
+demoControllers.controller('SearchController', ['$scope', 'Courses', '$location', '$routeParams', function($scope, Courses, $location, $routeParams) {
+	$scope.courses = "";
+	$scope.query = $routeParams.query;
+	rawData = "";
+
+	Courses.searchFromCoursera($scope.query, function(data){
+		rawData = data.hits.hits;
+		for(var i = 0; i < rawData.length; i++){
+			if(rawData[i]._source.language != "en"){
+				rawData[i]._source.name = utf8(rawData[i]._source.name);
+				rawData[i]._source.shortDescription = utf8(rawData[i]._source.shortDescription);
+			}
+		}
+		$scope.courses = rawData;
+	});
+
+	$scope.submit = function(){
+		if($scope.query != $routeParams.query){
+			$location.path('/search/q='+$scope.query);	
+		}
+	}
+
 	utf8 = function(s){
 		return s.replace(/\\u([0-9a-f]{4})/g, function (whole, group1) {return String.fromCharCode(parseInt(group1, 16));});
 	};
@@ -24,6 +44,10 @@ demoControllers.controller('MainController', ['$scope', 'Courses', function($sco
 		initNavbar();
 	});
 }]);
+
+
+
+
 
 demoControllers.controller('CourseController', ['$scope', '$routeParams','Courses', function($scope, $routeParams, Courses) {
 	$scope.courseID = $routeParams.id;
@@ -47,7 +71,8 @@ demoControllers.controller('CourseController', ['$scope', '$routeParams','Course
 	Courses.getCourseById($routeParams.id, function(data){
 		rawData = data.hits.hits;
 		suggest = rawData[0]._source.recommendbackground_p;
-		// console.log(suggest);
+		// suggest = rawData[0]._source.recommendedBackground;
+
 		$scope.photo = rawData[0]._source.photo;
 		if(rawData[0]._source.language != "en"){
 			$scope.name = utf8(rawData[0]._source.name);

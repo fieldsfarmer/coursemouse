@@ -1,2 +1,2 @@
-# Artist Finder
-Final project for CS 498RK @ UIUC.
+# Course Mouse
+Final project for CS 410 @ UIUC.

@@ -1,7 +1,7 @@
 <div class="navbar-fixed">
 	<nav>
 		<div class="nav-wrapper">
-			<h3 class="center">Course Mouse</h3>
+			<a href="#/home"><h3 class="center">Course Mouse</h3></a>
 		</div>	
 	</nav>
 </div>
@@ -13,4 +13,19 @@
     <form class="input-field" ng-submit="submit()">
     	<input  ng-model="query" id="search" type="text" required autofocus="autofocus" placeholder="Input the course you want to find">
     </form>
+
+	<br>
+
+	<div class="row">
+		<section ng-repeat="course in courses">
+			
+			<br>
+			<a href="#/courses/{{course._id}}">{{course._source.name}}</a>
+			<br>
+			{{course._source.shortDescription}}
+			<br>
+			<br>
+			<div class="divider"></div>
+		</section>	
+	</div>
 </section>
