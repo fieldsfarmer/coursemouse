@@ -1,0 +1,59 @@
+<div class="navbar-fixed">
+	<nav>
+		<div class="nav-wrapper">
+			<a href="#/home"><h3 class="center">Course Mouse</h3></a>
+		</div>	
+	</nav>
+</div>
+
+<section class="container">
+	<div class="section">		
+			<img class="responsive-img course-img" ng-src="{{photo}}" alt="data/images/einstein.jpg">
+	</div>
+	<div class="section">
+		<h5>{{name}}</h5>
+	</div>
+	<div class="divider"></div>
+
+	<div class="section">
+		<h5>About</h5>
+		<p>{{aboutTheCourse}}</p>
+	</div>
+	<div class="divider"></div>
+
+	<div class="section">
+		<h5>Course Format</h5>
+		<p>{{courseFormat}}</p>
+	</div>	
+	<div class="divider"></div>
+
+	<div class="section">
+		<h5>Recommended Background</h5>
+		<p>{{recommendedBackground}}</p>
+	</div>	
+	<div class="divider"></div>
+
+	<div class="section">
+		<h5>Suggest Prerequisite Courses</h5>
+		<p>We think the following courses might help you for this course.</p>
+	</div>	
+
+	<div class="row">
+		<section ng-repeat="(index, value) in suggest_courses">
+				<a ng:show="index < 2" class="col s3" href="#/courses/{{value._id}}"><img class="responsive-img" ng-src="{{value._source.photo}}" alt="data/images/einstein.jpg"></a>
+				<a ng:show="index < 2" class="col s3" href="#/courses/{{value._id}}">{{value._source.name}}</a>
+		</section>	
+	</div>
+	<div class="row">
+		<section ng-repeat="(index, value) in suggest_courses">
+				<a ng:show="index > 1 && index < 4" class="col s3" href="#/courses/{{value._id}}"><img class="responsive-img" ng-src="{{value._source.photo}}" alt="data/images/einstein.jpg"></a>
+				<a ng:show="index > 1 && index < 4" class="col s3" href="#/courses/{{value._id}}">{{value._source.name}}</a>
+		</section>	
+	</div>
+	<div class="divider"></div>	
+
+	<div class="section">
+		<h5>Course Website</h5>
+		<a href="{{website}}" target="_blank">{{website}}</a>
+	</div>
+</section>

@@ -1,0 +1,35 @@
+<div class="navbar-fixed">
+	<nav>
+		<div class="nav-wrapper">
+			<h3 class="center">Course Mouse</h3>
+		</div>	
+	</nav>
+</div>
+
+<section class="container">
+	<div class="section">
+		<h5>Find the best online courses! </h5>
+	</div>
+	<!-- <form id="search-form"> -->
+	    <div class="input-field">
+	    	<label for="search"><i class="mdi-action-search"></i></label>	    	
+	    	<input ng-model="query" id="search" type="search" required autofocus="autofocus" placeholder="Input the course you want to find">
+	    </div>
+	<!-- </form> -->
+    <div class="text-center">
+  		<button ng-click="submit()" class="waves-effect indigo btn">submit</button>
+	</div>
+
+	<br>
+	<br>
+
+	<div class="row">
+		<section ng-repeat="course in courses">
+			<div class="divider"></div>
+			<br>
+				<a href="#/courses/{{course._id}}">{{course._source.name}}</a>
+				<br>
+				{{course._source.shortDescription}}
+		</section>	
+	</div>
+</section>
