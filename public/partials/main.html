@@ -10,7 +10,24 @@
 	<div class="section">
 		<h5 class="center">Find the best online courses! </h5>
 	</div>
-    <form class="input-field" ng-submit="submit()">
-    	<input  ng-model="query" id="search" type="text" required autofocus="autofocus" placeholder="Input the course you want to find">
+
+	<div class="row">
+		<button ng-click="index=1" class="col s2 offset-s1 btn waves-effect waves-light">Course</button>
+		<button ng-click="index=2" class="col s2 offset-s1 btn waves-effect waves-light">University</button>
+		<button ng-click="index=3" class="col s2 offset-s1 btn waves-effect waves-light">Instructor</button>
+		<button ng-click="index=4" class="col s2 offset-s1 btn waves-effect waves-light">Category</button>
+	</div>
+
+    <form class="input-field" ng-submit="submit()" ng-show="index==1">
+    	<input  ng-model="query" id="search" type="text" required autofocus="autofocus" placeholder="Input the course name you want to find">
     </form>
+    <form class="input-field" ng-submit="submitU()" ng-show="index==2">
+	    <input  ng-model="query" id="search" type="text" required autofocus="autofocus" placeholder="Input the university's name">
+	</form>
+    <form class="input-field" ng-submit="submitI()" ng-show="index==3">
+	    <input  ng-model="query" id="search" type="text" required autofocus="autofocus" placeholder="Input the instructor's name">
+	</form>	
+	<form class="input-field" ng-submit="submitC()" ng-show="index==4">
+	    <input  ng-model="query" id="search" type="text" required autofocus="autofocus" placeholder="Input the category">
+	</form>	
 </section>
