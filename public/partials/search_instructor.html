@@ -1,0 +1,28 @@
+<div class="navbar-fixed">
+	<nav>
+		<div class="nav-wrapper">
+			<a href="#/home"><h3 class="center">Course Mouse</h3></a>
+		</div>	
+	</nav>
+</div>
+
+<section class="container">
+	<div class="section">
+		<h5 class="center">Search Instructors</h5>
+	</div>
+    <form class="input-field" ng-submit="submit()">
+    	<input  ng-model="query" id="search" type="text" required autofocus="autofocus" placeholder="Input the Instructor's name">
+    </form>
+
+	<br>
+
+	<div class="row">
+		<section ng-repeat="a in instructors">
+			<br>
+			<a href="#/instructors/{{a._id}}">{{a._source.firstName}}  {{a._source.lastName}}</a>
+			<br>
+			<div class="divider"></div>
+		</section>	
+	</div>
+
+</section>
