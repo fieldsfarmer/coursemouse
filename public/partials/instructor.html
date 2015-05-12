@@ -23,14 +23,23 @@
 	</div>
 	<div class="divider"></div>
 
-	<!-- <div class="section">
-		<h5>Course Format</h5>
-		<p>{{courseFormat}}</p>
-	</div>	
-	<div class="divider"></div> -->
-
 	<div class="section">
 		<h5>Website</h5>
 		<a href="{{website}}" target="_blank">{{website}}</a>
 	</div>
+
+	<div class="divider"></div>
+
+	<div class="section">
+		<h5>Courses</h5>
+		<section ng-repeat="course in courses">
+			<br>
+			<a href="#/courses/{{course._id}}">{{course._source.name}}</a>
+			<br>
+			{{course._source.shortDescription}}
+			<br>
+			<br>
+		</section>	
+	</div>
+
 </section>

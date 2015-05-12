@@ -190,7 +190,10 @@ demoControllers.controller('SearchCategoryController', ['$scope', 'Courses', 'Un
 demoControllers.controller('InstructorController', ['$scope', '$routeParams','Courses', 'Instructors', 'Universities', function($scope, $routeParams, Courses, Instructors, Universities) {
 	$scope.ID = $routeParams.id;
 	$scope.uni = "";
-	$scope.course = "";
+
+	$scope.courses = Array();
+	$scope.courses_id = Array();
+
 	$scope.photo = "";
 	$scope.name = "";
 	$scope.bio = "";
@@ -207,9 +210,24 @@ demoControllers.controller('InstructorController', ['$scope', '$routeParams','Co
 		$scope.bio = utf8(rawData._source.bio);
 		$scope.title = utf8(rawData._source.title);
 		$scope.department = utf8(rawData._source.department);
+
 		Universities.getfromId(rawData._source.links.universities[0], function(data0){
 			$scope.uni = data0.hits.hits[0]._source.name;
 			// console.log($scope.uni);
+			if(rawData._source.links["courses"]!=undefined){
+				console.log("hello, world");
+				$scope.courses_id = rawData._source.links.courses;
+				console.log($scope.courses_id);
+				for(var i = 0; i < $scope.courses_id.length; i++){
+					Courses.getfromId($scope.courses_id[i], function(data_i){
+						if(data_i.hits.hits.length > 0){
+							data_i.hits.hits[0]._source.name = utf8(data_i.hits.hits[0]._source.name);
+							data_i.hits.hits[0]._source.shortDescription = utf8(data_i.hits.hits[0]._source.shortDescription);			
+							$scope.courses.push(data_i.hits.hits[0]);	
+						}
+					});
+				}
+			}
 		});
 	});
 
@@ -222,7 +240,6 @@ demoControllers.controller('InstructorController', ['$scope', '$routeParams','Co
 		initNavbar();
 	});
 }]);
-
 
 demoControllers.controller('CourseController', ['$scope', '$routeParams','Courses', function($scope, $routeParams, Courses) {
 	$scope.courseID = $routeParams.id;
@@ -283,10 +300,6 @@ demoControllers.controller('CourseController', ['$scope', '$routeParams','Course
 		initNavbar();
 	});
 }]);
-
-
-
-
 
 function initNavbar() {
 	$('footer').css('display', 'inline');
